@@ -34,6 +34,8 @@ const CommonContextProvider = (props) => {
         set_all_product(products);
     }
 
+    const [cartProducts, setCartProducts] = useState([]);
+
 
     useEffect(() => {
         fetch('http://localhost:8000/', {
@@ -62,6 +64,15 @@ const CommonContextProvider = (props) => {
         if (sessionID) {
             localStorage.setItem(`cartItems_${sessionID}`, JSON.stringify(cartItems));
         }
+    }, [cartItems]);
+
+    useEffect(() => {
+        fetch('http://localhost:8000/allproducts', {
+            credentials: "include"
+        }).then((response) => response.json())
+        .then((data) => setCartProducts(data.allProducts.filter(product => cartItems[product.id] > 0)));
+        // const productsInCart = all_product.filter(product => cartItems[product.id] > 0);
+        // setCartProducts(productsInCart);
     }, [cartItems]);
 
 
@@ -97,7 +108,7 @@ const CommonContextProvider = (props) => {
         let total = 0
         for(const i in cartItems){
             if(cartItems[i] > 0){
-                let itemInfo = all_product.find((product) => product.id===(Number)(i))
+                let itemInfo = cartProducts.find((product) => product.id===(Number)(i))
                 if(itemInfo){
                     total += itemInfo.new_price * cartItems[i];
                 }
@@ -106,7 +117,7 @@ const CommonContextProvider = (props) => {
         return total;
     }
 
-    const contextVal = { getTotalCartValue, all_product, cartItems, addItemCart, removeItemCart, updateProducts }
+    const contextVal = { getTotalCartValue, all_product, cartItems, addItemCart, removeItemCart, updateProducts, cartProducts }
 
 
     return (

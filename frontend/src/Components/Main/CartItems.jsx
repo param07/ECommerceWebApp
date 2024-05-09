@@ -4,7 +4,7 @@ import { CommonContext } from "./Common";
 import remove_icon from '../Assets/cart_cross_icon.png'
 
 const CartItems = () => {
-    const { all_product, cartItems, removeItemCart, getTotalCartValue } = useContext(CommonContext)
+    const { cartItems, removeItemCart, getTotalCartValue, cartProducts } = useContext(CommonContext)
     return (
         <div className="cartItemsClass">
             <div className="cartItems-main">
@@ -16,7 +16,7 @@ const CartItems = () => {
                 <p>Remove</p>
             </div>
             <hr />
-            {all_product.map((i) => {
+            {cartProducts.map((i) => {
                 if (cartItems[i.id] > 0) {
                     return <div key={i.id}>
                                 <div className="cartItems-format cartItems-main">
