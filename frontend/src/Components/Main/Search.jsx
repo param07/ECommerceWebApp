@@ -6,17 +6,25 @@ const Search = () => {
     const { updateProducts } = useContext(CommonContext);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const handleSearch = () => {
-        console.log({searchTerm})
-        fetch('http://localhost:8000/searchproducts?name=' + encodeURIComponent(searchTerm))
-        .then(response => response.json())
-        .then(data => {
-            // Update products in context
+    const handleSearch = async () => {
+        // console.log({searchTerm})
+        // fetch('http://localhost:8000/searchproducts?name=' + encodeURIComponent(searchTerm))
+        // .then(response => response.json())
+        // .then(data => {
+        //     // Update products in context
+        //     updateProducts(data.allProducts);
+        // })
+        // .catch(error => {
+        //     console.error('Error fetching search results:', error);
+        // });
+        try {
+            console.log({searchTerm});
+            const response = await fetch('http://localhost:8000/searchproducts?name=' + encodeURIComponent(searchTerm));
+            const data = await response.json();
             updateProducts(data.allProducts);
-        })
-        .catch(error => {
+        } catch (error) {
             console.error('Error fetching search results:', error);
-        });
+        }
     }
 
 

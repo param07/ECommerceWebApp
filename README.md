@@ -18,7 +18,5 @@ Implemented features
 3. Load of products from database
 4. Add to cart
 5. Searching of products
-
-In progress features
-1. Creation and insertion of orders, order details
-2. Hitting 3rd party API for payment
+6. Save of orders, order details and payment details
+7. Integration of PayPal payment gateway

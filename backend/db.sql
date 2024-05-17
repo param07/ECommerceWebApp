@@ -35,20 +35,37 @@ create table session_details(
     update_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-create table cart(
+create table orders(
     id SERIAL NOT NULL PRIMARY KEY,
     session_id INT NOT NULL REFERENCES session_details(id),
     total_amount DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    order_pay_status VARCHAR(50) NOT NULL,
+    order_deliver_status VARCHAR(50) NOT NULL,
+    shipping_address TEXT DEFAULT NULL,
+    billing_address TEXT DEFAULT NULL,
     create_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     update_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-create table cartDetails(
+create table order_details(
     id SERIAL NOT NULL PRIMARY KEY,
-    cart_id INT NOT NULL REFERENCES cart(id),
+    order_id INT NOT NULL REFERENCES orders(id),
     product_id INT NOT NULL REFERENCES product(id),
     quantity INT NOT NULL DEFAULT 0,
+    order_deliver_status VARCHAR(50) NOT NULL,
     create_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     update_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+create table payment_details(
+    id SERIAL NOT NULL PRIMARY KEY,
+    ord_id INT NOT NULL REFERENCES orders(id),
+    session_id INT NOT NULL REFERENCES session_details(id),
+    transaction_id VARCHAR(100) NOT NULL,
+    payment_status VARCHAR(255) NOT NULL,
+    create_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
 
