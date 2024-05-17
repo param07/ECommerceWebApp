@@ -32,7 +32,7 @@ const Search = () => {
         <div className="searchbar">
             <div className="form-group">
                 <input type="text" className="form-control" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}  placeholder="search product" />
-                <button className="btn btn-default" onClick={handleSearch}>Search</button>
+                <button className="btn" onClick={handleSearch}>Search</button>
             </div>
         </div>
     )

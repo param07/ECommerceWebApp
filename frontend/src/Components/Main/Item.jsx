@@ -18,7 +18,7 @@ const Item = (props) => {
                 <div className="item-price-old">${props.old_price}</div>
             </div>
             <div>
-                <button type="button" className="btn btn-default cart-button" onClick={() => {addItemCart(props.id)}}>ADD TO CART</button>
+                <button type="button" className="btn cart-button" onClick={() => {addItemCart(props.id)}}>ADD TO CART</button>
             </div>
         </div>
     )

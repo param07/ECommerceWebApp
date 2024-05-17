@@ -5,8 +5,11 @@ Setup Instructions:
 1. Go to Frontend folder. Run command 'npm install' to install all dependencies for Frontend
 2. Go to Backend folder. Run command 'npm install' to install all dependencies for Backend
 3. Install database Postgresql from https://www.postgresql.org/
-4. Please make changes in db.js in backend folder, as per the database details for appropriate connection
-5. Run create table commands for creating tables from db.sql in backend folder
+4. Please create .env file inside the backend folder parallel to db.js, index.js inside the backend folder
+5. Please define the variable DB_HOST, DB_USER, DB_PASS, DB_PORT, DB_NAME according to your database.
+6. Please define the variable PAYPAL_CLIENT_ID, PAYPAL_SECRET, PAYPAL_BASE_URL according to your PayPal Account
+7. Please define the variable BACK_URL, FRONT_URL as where your backend and frontend are running respectively
+8. Run create table commands for creating tables from db.sql in backend folder
 
 To Run the app:
 Backend: Go to Backend folder. Execute command "npm start". The backend will run at port 8000. We can access it localhost:8000

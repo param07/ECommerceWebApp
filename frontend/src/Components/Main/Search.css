@@ -29,8 +29,26 @@
     /* width: 150px; */
     /* height: 40px; */
     /* border-radius: 10px; */
-    background: rgb(132, 0, 255);
+    background-color: rgb(132, 0, 255);
     color: white;
-    /* font-size: 16px; */
+    border-color: rgb(132, 0, 255);
     cursor: pointer;
+    transition: background-color 0.3s;
 }
+
+.searchbar div button:hover {
+    background-color: rgba(132, 0, 255, 0.8);
+}
+
+.searchbar div button:active {
+    background-color: rgba(132, 0, 255, 0.8);
+    color: white;
+    outline: none;
+}
+
+.searchbar div button:focus {
+    background-color: rgba(132, 0, 255, 0.8);
+    color: white;
+    outline: none;
+}
+

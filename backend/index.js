@@ -10,12 +10,13 @@ const uniqid = require('uniqid');
 const axios = require('axios');
 const sha256 = require('js-sha256');
 const { url } = require("inspector")
+const dotenv = require('dotenv').config()
 
 
 // Port Number Setup 
 const PORT = process.env.port || 8000
-const FRONT_URL = 'http://localhost:3000';
-const BACK_URL = 'http://localhost:8000';
+const FRONT_URL = process.env.FRONT_URL;
+const BACK_URL = process.env.BACK_URL;
 
 
 
@@ -171,14 +172,10 @@ app.get("/searchproducts", async function (req, res) {
 // 		});
 // })
 
-PAYPAL_CLIENT_ID = "AZ7HmAZ4oiT8vOb2ejMbBOxBNaFNdOPU9AhvmfjnIPmrNhzRa84kseuLxiYX_kPSIeC4VS298PX5UlkQ";
-PAYPAL_SECRET = "EFEnpstSCLiXHTvmWlUhG04BPYPEwIzRHoUv6KtDI6kxrJ6DMIENKlvL3deB5IXCaxVEPHN3ZPPWA6ge";
-PAYPAL_BASE_URL = "https://api-m.sandbox.paypal.com"
-
 
 async function generatePayPalAccessToken() {
 	const response = await axios({
-        url: PAYPAL_BASE_URL + '/v1/oauth2/token',
+        url: process.env.PAYPAL_BASE_URL + '/v1/oauth2/token',
         method: 'post',
 		headers: {
 			accept: 'application/json',
@@ -186,8 +183,8 @@ async function generatePayPalAccessToken() {
 		},
         data: 'grant_type=client_credentials',
         auth: {
-            username: PAYPAL_CLIENT_ID,
-            password: PAYPAL_SECRET
+            username: process.env.PAYPAL_CLIENT_ID,
+            password: process.env.PAYPAL_SECRET
         }
     })
 
@@ -225,7 +222,7 @@ async function initiatePayPalPayment(payArr, totalCartValue, transactionID, paym
 	// console.log("total cart value", totalCartValue)
 
 	const response = await axios({
-        url: PAYPAL_BASE_URL + '/v2/checkout/orders',
+        url: process.env.PAYPAL_BASE_URL + '/v2/checkout/orders',
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -279,7 +276,7 @@ async function finishPayment(orderId){
 	console.log("newaccesstoken", accessToken)
 
     const response = await axios({
-        url: PAYPAL_BASE_URL + `/v2/checkout/orders/${orderId}/capture`,
+        url: process.env.PAYPAL_BASE_URL + `/v2/checkout/orders/${orderId}/capture`,
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -309,7 +306,7 @@ app.get('/completeOrder', async (req, res) => {
 		const allAvailProducts = await getAllProducts();
 		// return res.redirect('http://localhost:3000');
 		// return res.status(200).json({ allProducts: allAvailProducts, cart_details: {}, payStatus: "success"});
-		const redirectUrl = `http://localhost:3000?payStatus=success`;
+		const redirectUrl = `${FRONT_URL}?payStatus=success`;
 		return res.redirect(redirectUrl);
 	} catch (error) {
 		console.log("Error in /completeOrder API: ", error)

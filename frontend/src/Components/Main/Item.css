@@ -35,6 +35,24 @@
 }
 
 .cart-button{
-    background-color: cornflowerblue;
-    color: white;
+    background-color: #ffd814;
+    color: black;
+    border-color: #fcd200;
+    transition: background-color 0.3s;
+}
+
+.cart-button:hover {
+    background-color: #e0c800;
+}
+
+.cart-button:active {
+    background-color: #e0c800;
+    color: black;
+    outline: none;
+}
+
+.cart-button:focus {
+    background-color: #e0c800;
+    color: black;
+    outline: none;
 }
